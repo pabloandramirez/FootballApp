@@ -15,6 +15,7 @@ public class Player {
     private Date dateOfBirth;
     private Position position;
     private int matches;
+    private int assists;
     private int goals;
     private boolean captain;
     private Club club;
@@ -52,6 +53,10 @@ public class Player {
         this.club = club;
     }
 
+    public void setAssists(int assists) {
+        this.assists = assists;
+    }
+
     @Override
     public String toString() {
         return "Player{" +
@@ -61,6 +66,7 @@ public class Player {
                 ", dateOfBirth=" + dateOfBirth +
                 ", position=" + position.toString() +
                 ", matches=" + matches +
+                ", assists=" + assists +
                 ", goals=" + goals +
                 ", captain=" + captain +
                 ", club=" + club.getName() +
