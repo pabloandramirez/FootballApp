@@ -2,11 +2,13 @@ package com.footballapp.footballappmanagement.domain;
 
 import com.footballapp.footballappmanagement.bootstrapdata.enums.Position;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Date;
 import java.util.UUID;
 
 @Getter
+@Setter
 public class Player {
 
     private UUID uuid;
@@ -19,43 +21,6 @@ public class Player {
     private int goals;
     private boolean captain;
     private Club club;
-
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setSurName(String surName) {
-        this.surName = surName;
-    }
-
-    public void setDateOfBirth(Date dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
-    }
-
-    public void setPosition(Position position) {
-        this.position = position;
-    }
-
-    public void setMatches(int matches) {
-        this.matches = matches;
-    }
-
-    public void setGoals(int goals) {
-        this.goals = goals;
-    }
-
-    public void setCaptain(boolean captain) {
-        this.captain = captain;
-    }
-
-    public void setClub(Club club) {
-        this.club = club;
-    }
-
-    public void setAssists(int assists) {
-        this.assists = assists;
-    }
 
     @Override
     public String toString() {
