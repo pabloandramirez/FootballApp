@@ -3,6 +3,8 @@ package com.footballapp.footballappmanagement.services.stadium.impl;
 import com.footballapp.footballappmanagement.domain.Stadium;
 import com.footballapp.footballappmanagement.services.stadium.StadiumService;
 
+import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 public class StadiumServiceImpl implements StadiumService {
@@ -11,4 +13,31 @@ public class StadiumServiceImpl implements StadiumService {
         stadium.setUuid(UUID.randomUUID());
         return stadium;
     }
+
+    @Override
+    public List<Stadium> allStadiums() {
+        return null;
+    }
+
+    @Override
+    public List<Stadium> stadiumByName(String name) {
+        return null;
+    }
+
+    @Override
+    public List<Stadium> stadiumByCityName(String cityName) {
+        return null;
+    }
+
+    @Override
+    public Optional<Stadium> updateStadium(UUID uuidStadium, Stadium stadiumUpdated) {
+        return Optional.empty();
+    }
+
+    @Override
+    public boolean deletePlayer(UUID uuidPlayer) {
+        return false;
+    }
+
+
 }

@@ -4,6 +4,7 @@ import com.footballapp.footballappmanagement.bootstrapdata.enums.Position;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.UUID;
 
@@ -14,7 +15,7 @@ public class Player {
     private UUID uuid;
     private String name;
     private String surName;
-    private Date dateOfBirth;
+    private LocalDateTime dateOfBirth;
     private Position position;
     private int matches;
     private int assists;

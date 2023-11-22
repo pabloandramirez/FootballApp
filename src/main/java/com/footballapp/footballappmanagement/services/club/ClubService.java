@@ -10,14 +10,17 @@ import java.util.UUID;
 
 public interface ClubService {
 
-    //POSTs
+    //POST
     Club createClub(@RequestBody Club club);
 
-    //GETs
+    //GET
     List<Club> getClubs();
     List<Club> getClubByName(String name);
     List<Club> getClubByCity(String city);
 
-    //PUTs
+    //PUT
     Optional<Club> updateClub(UUID uuidClub, Club clubUpdated);
+
+    //DELETE
+    boolean deleteClub(UUID uuidClub);
 }

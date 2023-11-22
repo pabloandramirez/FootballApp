@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.autoconfigure.mail.MailProperties;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -15,7 +16,7 @@ import java.util.stream.Collectors;
 public class Club {
     private UUID uuid;
     private String name;
-    private Date dateOfFoundation;
+    private LocalDateTime dateOfFoundation;
     private String city;
     private Coach coach;
     private Map<UUID, Player> players = new HashMap<>();

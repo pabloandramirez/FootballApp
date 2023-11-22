@@ -36,4 +36,9 @@ public class ClubServiceImpl implements ClubService {
         return Optional.empty();
     }
 
+    @Override
+    public boolean deleteClub(UUID uuidClub) {
+        return false;
+    }
+
 }
