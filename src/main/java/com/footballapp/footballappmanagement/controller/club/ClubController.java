@@ -1,6 +1,7 @@
 package com.footballapp.footballappmanagement.controller.club;
 
 import com.footballapp.footballappmanagement.domain.Club;
+import com.footballapp.footballappmanagement.exceptions.IllegalArgumentException;
 import com.footballapp.footballappmanagement.services.club.ClubService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,7 +24,7 @@ public class ClubController {
     @GetMapping("/")
     public List<Club> getClubs(@RequestParam(name="name", required = false) String name){
         log.info("Trying to find clubs by name. In case name is empty it shows the full list");
-        if (name == null || name.isBlank()){
+        if (name == null || name.trim().isBlank()){
             return clubService.getClubs();
         } else{
             if(clubService.getClubByName(name).isEmpty()){
@@ -32,6 +33,18 @@ public class ClubController {
         }
         return clubService.getClubByName(name);
     }
+
+    @GetMapping("/city/")
+    public List<Club> getClubByCityName(@RequestParam(name="name", required = false) String cityName) throws IllegalArgumentException {
+        log.info("Find the club by the name of its city. If its empty will show an advertising message");
+        if(cityName == null || cityName.trim().isBlank() || cityName.isEmpty()){
+            log.info("Must be a city name to search");
+            throw new IllegalArgumentException();
+        } else {
+            return clubService.getClubByCity(cityName);
+        }
+    }
+
     //POST
 
     //PUT
