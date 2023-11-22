@@ -17,6 +17,11 @@ public class ClubServiceImpl implements ClubService {
     }
 
     @Override
+    public Optional<Club> getClubById(UUID uuidClub) {
+        return Optional.empty();
+    }
+
+    @Override
     public List<Club> getClubs() {
         return null;
     }

@@ -14,6 +14,7 @@ public interface ClubService {
     Club createClub(@RequestBody Club club);
 
     //GET
+    Optional<Club> getClubById(UUID uuidClub);
     List<Club> getClubs();
     List<Club> getClubByName(String name);
     List<Club> getClubByCity(String city);
