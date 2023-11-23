@@ -24,7 +24,7 @@ public class ClubController {
     private final ClubService clubService;
 
     //GET
-    @GetMapping("/{idCLub}")
+    @GetMapping("/{idClub}")
     public Optional<Club> getClubById(@PathVariable(value = "idClub")UUID idClub){
         return clubService.getClubById(idClub);
     }

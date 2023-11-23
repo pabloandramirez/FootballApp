@@ -17,6 +17,11 @@ public class PlayerServiceImpl implements PlayerService {
     }
 
     @Override
+    public Optional<Player> getPlayerById(UUID idPlayer) {
+        return Optional.empty();
+    }
+
+    @Override
     public List<Player> allPlayers() {
         return null;
     }

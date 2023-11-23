@@ -15,6 +15,11 @@ public class CoachServiceImpl implements CoachService {
     }
 
     @Override
+    public Optional<Coach> getCoachById(UUID idCoach) {
+        return Optional.empty();
+    }
+
+    @Override
     public List<Coach> getCoachs() {
         return null;
     }

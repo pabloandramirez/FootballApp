@@ -13,6 +13,7 @@ public interface CoachService {
     Coach createCoach(@RequestBody Coach coach);
 
     //GET
+    Optional<Coach> getCoachById(UUID idCoach);
     List<Coach> getCoachs();
     List<Coach> getCoachByName(String coachName);
 

@@ -13,6 +13,7 @@ public interface StadiumService {
     Stadium createStadium(@RequestBody Stadium stadium);
 
     //GET
+    Optional<Stadium> getStadiumById(UUID idStadium);
     List<Stadium> allStadiums();
     List<Stadium> stadiumByName(String name);
     List<Stadium> stadiumByCityName(String cityName);

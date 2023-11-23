@@ -15,6 +15,11 @@ public class StadiumServiceImpl implements StadiumService {
     }
 
     @Override
+    public Optional<Stadium> getStadiumById(UUID idStadium) {
+        return Optional.empty();
+    }
+
+    @Override
     public List<Stadium> allStadiums() {
         return null;
     }

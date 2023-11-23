@@ -13,6 +13,7 @@ public interface PlayerService {
     Player createPlayer(@RequestBody Player player);
 
     //GET
+    Optional<Player> getPlayerById(UUID idPlayer);
     List<Player> allPlayers();
     List<Player> playerByName(String name);
     List<Player> playerByClubName(String name);
