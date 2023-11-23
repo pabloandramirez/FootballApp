@@ -14,7 +14,7 @@ public interface CoachService {
 
     //GET
     Optional<Coach> getCoachById(UUID idCoach);
-    List<Coach> getCoachs();
+    List<Coach> getCoaches();
     List<Coach> getCoachByName(String coachName);
 
     //PUT

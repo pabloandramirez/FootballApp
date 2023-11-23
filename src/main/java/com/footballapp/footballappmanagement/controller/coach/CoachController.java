@@ -1,6 +1,8 @@
 package com.footballapp.footballappmanagement.controller.coach;
 
+import com.footballapp.footballappmanagement.domain.Club;
 import com.footballapp.footballappmanagement.domain.Coach;
+import com.footballapp.footballappmanagement.exceptions.NotFoundException;
 import com.footballapp.footballappmanagement.services.coach.CoachService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -14,7 +16,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("api/v1/coach")
+@RequestMapping("/api/v1/coach")
 @RequiredArgsConstructor
 @Slf4j
 public class CoachController {
@@ -23,15 +25,21 @@ public class CoachController {
 
     //GET
     @GetMapping("/{idCoach}")
-    public Optional<Coach> getCoachById(@PathVariable(value = "idCoach") UUID idCoach){
-        return coachService.getCoachById(idCoach);
+    public Optional<Coach> getCoachById(@PathVariable(value = "idCoach") UUID idCoach) throws NotFoundException {
+        Optional<Coach> coach = coachService.getCoachById(idCoach);
+        if (coach.isEmpty()){
+            log.info("Club Not Found");
+            throw new NotFoundException();
+        } else {
+            return coach;
+        }
     }
 
     @GetMapping("/")
-    public List<Coach> getCoachs(@RequestParam(name="name", required = false)String coachName){
+    public List<Coach> getCoaches(@RequestParam(name="name", required = false)String coachName){
         log.info("Shows all coaches or find by name");
-        if (coachName == null || coachName.trim().isBlank()){
-            return coachService.getCoachs();
+        if (coachName == null || coachName.isBlank()){
+            return coachService.getCoaches();
         } else {
             if (coachService.getCoachByName(coachName).isEmpty()){
                 log.info("There are no coaches with this name");
@@ -51,5 +59,29 @@ public class CoachController {
         return new ResponseEntity<>(headers, HttpStatus.CREATED);
     }
 
-    
+    //PUT
+    @PutMapping("/{idCoach}")
+    public ResponseEntity<Void> updateCoach(@PathVariable(value = "idCoach") UUID idCoach, @RequestBody Coach coachUpdated) throws NotFoundException {
+        Optional<Coach> coach = coachService.updateCoach(idCoach, coachUpdated);
+        if (coach.isEmpty()){
+            log.info("Coach Not Found");
+            throw new NotFoundException();
+        } else{
+            log.info("Coach Updated");
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+    }
+
+    //DELETE
+    @DeleteMapping("/{idCoach}")
+    public ResponseEntity<Void> deleteCoach(@PathVariable(value = "idCoach") UUID idCoach) throws NotFoundException {
+        boolean isCoachDeleted = coachService.deleteCoach(idCoach);
+        if(isCoachDeleted){
+            log.info("Coach deleted");
+            return new ResponseEntity<>(HttpStatus.OK);
+        } else {
+            log.info("Coach Not Found");
+            throw new NotFoundException();
+        }
+    }
 }

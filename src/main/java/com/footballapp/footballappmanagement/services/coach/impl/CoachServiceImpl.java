@@ -20,7 +20,7 @@ public class CoachServiceImpl implements CoachService {
     }
 
     @Override
-    public List<Coach> getCoachs() {
+    public List<Coach> getCoaches() {
         return null;
     }
 
