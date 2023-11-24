@@ -25,7 +25,8 @@ public class ClubController {
 
     //GET
     @GetMapping("/{idClub}")
-    public Optional<Club> getClubById(@PathVariable(value = "idClub")UUID idClub) throws NotFoundException {
+    public Optional<Club> getClubById(@PathVariable(value = "idClub")UUID idClub)
+            throws NotFoundException {
         Optional<Club> club = clubService.getClubById(idClub);
         if (club.isEmpty()){
             log.info("Club Not Found");
@@ -49,14 +50,17 @@ public class ClubController {
     }
 
     @GetMapping("/city/")
-    public List<Club> getClubByCityName(@RequestParam(name="name", required = false) String cityName) throws IllegalArgumentException {
-        log.info("Find the club/s by the name of its city. If its empty will show an error message");
-        if(cityName == null || cityName.isBlank() || cityName.isEmpty()){
-            log.info("Must be a city name to search");
-            throw new IllegalArgumentException();
-        } else {
+    public List<Club> getClubByCityName(@RequestParam(name="name", required = false) String cityName)
+            throws IllegalArgumentException {
+        log.info("Find the club/s by the name of its city. If its empty will show all clubs");
+        if(cityName == null || cityName.isBlank()){
             return clubService.getClubByCity(cityName);
+        } else {
+            if (clubService.getClubByCity(cityName).isEmpty()){
+                log.info("There are no clubs in this city");
+            }
         }
+        return clubService.getClubByCity(cityName);
     }
 
     //POST
@@ -71,7 +75,8 @@ public class ClubController {
     }
     //PUT
     @PutMapping("/{idClub}")
-    public ResponseEntity<Void> updateClub(@PathVariable(value = "idClub") UUID idClub, @RequestBody Club clubUpdated) throws NotFoundException {
+    public ResponseEntity<Void> updateClub(@PathVariable(value = "idClub") UUID idClub,
+                                           @RequestBody Club clubUpdated) throws NotFoundException {
         Optional<Club> club = clubService.updateClub(idClub, clubUpdated);
         if(club.isEmpty()){
             log.info("Club Not Found");
@@ -84,7 +89,8 @@ public class ClubController {
 
     //DELETE
     @DeleteMapping("/{idClub}")
-    public ResponseEntity<Void> deleteClub(@PathVariable(value = "idClub") UUID idClub) throws NotFoundException {
+    public ResponseEntity<Void> deleteClub(@PathVariable(value = "idClub") UUID idClub)
+            throws NotFoundException {
         boolean isClubDeleted = clubService.deleteClub(idClub);
         if(isClubDeleted){
             log.info("Club deleted");

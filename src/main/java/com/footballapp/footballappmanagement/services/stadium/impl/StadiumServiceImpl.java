@@ -40,7 +40,7 @@ public class StadiumServiceImpl implements StadiumService {
     }
 
     @Override
-    public boolean deletePlayer(UUID uuidPlayer) {
+    public boolean deleteStadium(UUID uuidStadium) {
         return false;
     }
 

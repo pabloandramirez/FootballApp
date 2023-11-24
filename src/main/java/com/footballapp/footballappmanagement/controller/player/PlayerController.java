@@ -1,6 +1,5 @@
 package com.footballapp.footballappmanagement.controller.player;
 
-import com.footballapp.footballappmanagement.domain.Coach;
 import com.footballapp.footballappmanagement.domain.Player;
 import com.footballapp.footballappmanagement.exceptions.IllegalArgumentException;
 import com.footballapp.footballappmanagement.exceptions.NotFoundException;
@@ -28,7 +27,8 @@ public class PlayerController {
 
     //GET
     @GetMapping("/{idPlayer}")
-    public Optional<Player> playerById(@PathVariable(value = "idPlayer")UUID idPlayer) throws NotFoundException {
+    public Optional<Player> playerById(@PathVariable(value = "idPlayer")UUID idPlayer)
+            throws NotFoundException {
         Optional<Player> player = playerService.getPlayerById(idPlayer);
         if (player.isEmpty()){
             log.info("Club Not Found");
@@ -52,13 +52,16 @@ public class PlayerController {
     }
 
     @GetMapping("/club/")
-    public List<Player> getPlayersByClub(@RequestParam(name = "clubName", required = false) String clubName) throws IllegalArgumentException {
-        log.info("Find the club by the name of its city. If its empty will show an error message");
-        if (clubName==null || clubName.isBlank() || clubName.isEmpty()){
-            throw new IllegalArgumentException();
+    public List<Player> getPlayersByClub(@RequestParam(name = "clubName", required = false) String clubName) {
+        log.info("Find the club by the name of its city. If its empty will show all players");
+        if (clubName==null || clubName.isBlank()){
+            return playerService.allPlayers();
         } else {
-            return playerService.playerByClubName(clubName);
+            if (playerService.playerByClubName(clubName).isEmpty()){
+                log.info("There are no player with this club name");
+            }
         }
+        return playerService.playerByClubName(clubName);
     }
 
     //POST
@@ -74,7 +77,8 @@ public class PlayerController {
 
     //PUT
     @PutMapping("/{idPlayer}")
-    public ResponseEntity<Void> updatePlayer(@PathVariable(value = "idPlayer") UUID idPlayer, @RequestBody Player playerUpdated) throws NotFoundException {
+    public ResponseEntity<Void> updatePlayer(@PathVariable(value = "idPlayer") UUID idPlayer,
+                                             @RequestBody Player playerUpdated) throws NotFoundException {
         Optional<Player> player = playerService.updatePlayer(idPlayer, playerUpdated);
         if (player.isEmpty()){
             log.info("Player Not Found");
@@ -86,5 +90,16 @@ public class PlayerController {
     }
 
     //DELETE
-    
+    @DeleteMapping("/{idPlayer}")
+    public ResponseEntity<Void> deletePlayer(@PathVariable(value = "idPlayer") UUID idPlayer)
+            throws NotFoundException {
+        boolean playerDeleted = playerService.deletePlayer(idPlayer);
+        if (playerDeleted){
+            log.info("Player deleted");
+            return new ResponseEntity<>(HttpStatus.OK);
+        } else {
+            log.info("Player Not Found");
+            throw new NotFoundException();
+        }
+    }
 }

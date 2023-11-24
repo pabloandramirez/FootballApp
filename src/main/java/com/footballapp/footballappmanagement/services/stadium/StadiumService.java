@@ -22,5 +22,5 @@ public interface StadiumService {
     Optional<Stadium> updateStadium(UUID uuidStadium, Stadium stadiumUpdated);
 
     //DELETE
-    boolean deletePlayer(UUID uuidPlayer);
+    boolean deleteStadium(UUID uuidStadium);
 }
