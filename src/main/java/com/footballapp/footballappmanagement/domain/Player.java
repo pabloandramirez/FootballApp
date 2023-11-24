@@ -1,10 +1,7 @@
 package com.footballapp.footballappmanagement.domain;
 
 import com.footballapp.footballappmanagement.bootstrapdata.enums.Position;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.JdbcTypeCode;
@@ -28,14 +25,29 @@ public class Player {
     @JdbcTypeCode(SqlTypes.CHAR)
     @Column(length = 36, columnDefinition = "varchar(36)", updatable = false, nullable = false)
     private UUID uuid;
+
+    @Column(length = 50, columnDefinition = "varchar(50)", updatable = true, nullable = false)
     private String name;
+
+    @Column(length = 50, columnDefinition = "varchar(50)", updatable = true, nullable = false)
     private String surName;
+
     private LocalDateTime dateOfBirth;
+
     private Position position;
+
+    @Column(length = 5, columnDefinition = "Integer", updatable = true, nullable = false)
     private int matches;
+
+    @Column(length = 5, columnDefinition = "Integer", updatable = true, nullable = false)
     private int assists;
+
+    @Column(length = 5, columnDefinition = "Integer", updatable = true, nullable = false)
     private int goals;
+
     private boolean captain;
+
+    @ManyToOne
     private Club club;
 
     @Override
