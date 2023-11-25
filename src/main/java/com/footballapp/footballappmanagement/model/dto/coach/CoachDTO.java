@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 public class CoachDTO {
     private String name;
     private String surName;
-    private int yearsOld;
-    private int months;
+    private String dateOfBirth;
+    private String age;
     private String clubName;
 }

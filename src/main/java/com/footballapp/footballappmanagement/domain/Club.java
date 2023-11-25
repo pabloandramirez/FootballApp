@@ -5,14 +5,12 @@ import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
-import org.springframework.boot.autoconfigure.mail.MailProperties;
 
+
+import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
-import java.util.stream.Collectors;
+import java.util.*;
+
 
 @Getter
 @Setter
@@ -32,7 +30,7 @@ public class Club {
     @Column(length = 50, columnDefinition = "varchar(50)", updatable = true, nullable = false)
     private String name;
 
-    private LocalDateTime dateOfFoundation;
+    private LocalDate dateOfFoundation;
 
     @Column(length = 50, columnDefinition = "varchar(50)", updatable = true, nullable = false)
     private String city;
@@ -41,7 +39,7 @@ public class Club {
     private Coach coach;
 
     @OneToMany(mappedBy = "club")
-    private Map<UUID, Player> players = new HashMap<>();
+    private List<Player> players = new ArrayList<>();
 
     @Override
     public String toString() {
@@ -51,7 +49,7 @@ public class Club {
                 ", dateOfFoundation=" + dateOfFoundation +
                 ", city='" + city + '\'' +
                 ", coach=" + coach.getName() + " " + coach.getSurName() +
-                ", players=" + players.values().stream().toList() +
+                ", players=" + players.stream().toString() +
                 '}';
     }
 }

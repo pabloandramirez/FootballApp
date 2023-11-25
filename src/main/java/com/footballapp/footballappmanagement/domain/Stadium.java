@@ -6,6 +6,7 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.UUID;
@@ -30,7 +31,7 @@ public class Stadium {
     @Column(length = 50, columnDefinition = "varchar(50)", updatable = true, nullable = false)
     private String city;
 
-    private LocalDateTime constructionDate;
+    private LocalDate constructionDate;
 
     @Column(length = 6, columnDefinition = "int", updatable = true, nullable = false)
     private int capacity;
