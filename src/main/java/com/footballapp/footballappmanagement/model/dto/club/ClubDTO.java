@@ -1,9 +1,7 @@
 package com.footballapp.footballappmanagement.model.dto.club;
 
-import com.footballapp.footballappmanagement.domain.Coach;
 import lombok.*;
 
-import java.time.LocalDateTime;
 
 @Getter
 @Setter

@@ -1,10 +1,6 @@
 package com.footballapp.footballappmanagement.model.dto.stadium;
 
-import com.footballapp.footballappmanagement.domain.Club;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Date;
@@ -14,10 +10,13 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Slf4j
+@Builder
 public class StadiumDTO {
 
     private String name;
+    private String city;
     private String constructionDate;
     private int capacity;
     private String clubName;
+    private String idCLub;
 }

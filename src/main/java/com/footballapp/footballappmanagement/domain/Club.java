@@ -35,11 +35,14 @@ public class Club {
     @Column(length = 50, columnDefinition = "varchar(50)", updatable = true, nullable = false)
     private String city;
 
-    @OneToOne
+    @OneToOne(mappedBy = "club")
     private Coach coach;
 
     @OneToMany(mappedBy = "club")
     private List<Player> players = new ArrayList<>();
+
+    @OneToOne(mappedBy = "club")
+    private Stadium stadium;
 
     @Override
     public String toString() {

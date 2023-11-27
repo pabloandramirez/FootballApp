@@ -1,11 +1,10 @@
 package com.footballapp.footballappmanagement.model.dto.player;
 
-import com.footballapp.footballappmanagement.bootstrapdata.enums.Position;
-import com.footballapp.footballappmanagement.domain.Club;
+
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 
-import java.time.LocalDateTime;
+
 
 @Getter
 @Setter
@@ -25,4 +24,5 @@ public class PlayerDTO {
     private int goals;
     private boolean captain;
     private String clubName;
+    private String idClub;
 }

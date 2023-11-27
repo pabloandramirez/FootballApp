@@ -37,6 +37,7 @@ public class Stadium {
     private int capacity;
 
     @OneToOne
+    @JoinColumn(name = "club_id")
     private Club club;
 
     @Override

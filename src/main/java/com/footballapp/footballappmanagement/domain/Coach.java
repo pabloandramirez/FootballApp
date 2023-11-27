@@ -35,6 +35,7 @@ public class Coach {
     private LocalDate dateOfBirth;
 
     @OneToOne
+    @JoinColumn(name = "club_id")
     private Club club;
 
 

@@ -1,9 +1,7 @@
 package com.footballapp.footballappmanagement.model.dto.coach;
 
-import com.footballapp.footballappmanagement.domain.Club;
 import lombok.*;
 
-import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -16,4 +14,5 @@ public class CoachDTO {
     private String dateOfBirth;
     private String age;
     private String clubName;
+    private String idCLub;
 }
