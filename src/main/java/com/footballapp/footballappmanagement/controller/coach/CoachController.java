@@ -3,6 +3,7 @@ package com.footballapp.footballappmanagement.controller.coach;
 import com.footballapp.footballappmanagement.domain.Club;
 import com.footballapp.footballappmanagement.domain.Coach;
 import com.footballapp.footballappmanagement.exceptions.NotFoundException;
+import com.footballapp.footballappmanagement.model.dto.coach.CoachDTO;
 import com.footballapp.footballappmanagement.services.coach.CoachService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,34 +26,29 @@ public class CoachController {
 
     //GET
     @GetMapping("/{idCoach}")
-    public Optional<Coach> getCoachById(@PathVariable(value = "idCoach") UUID idCoach) throws NotFoundException {
-        Optional<Coach> coach = coachService.getCoachById(idCoach);
-        if (coach.isEmpty()){
-            log.info("Club Not Found");
-            throw new NotFoundException();
-        } else {
-            return coach;
-        }
+    public CoachDTO getCoachById(@PathVariable(value = "idCoach") UUID idCoach)
+            throws NotFoundException {
+        return coachService.getCoachById(idCoach).orElseThrow(NotFoundException::new);
     }
 
     @GetMapping("/")
-    public List<Coach> getCoaches(@RequestParam(name="name", required = false)String coachName){
+    public List<CoachDTO> getCoaches(@RequestParam(name="name", required = false)String coachName){
         log.info("Shows all coaches or find by name");
         if (coachName == null || coachName.isBlank()){
             return coachService.getCoaches();
         } else {
-            if (coachService.getCoachByName(coachName).isEmpty()){
+            if (coachService.getCoachByNameOrSurname(coachName).isEmpty()){
                 log.info("There are no coaches with this name");
             }
         }
-        return coachService.getCoachByName(coachName);
+        return coachService.getCoachByNameOrSurname(coachName);
     }
 
     //POST
     @PostMapping()
-    public ResponseEntity<Void> createCoach(@RequestBody Coach coach){
+    public ResponseEntity<Void> createCoach(@RequestBody CoachDTO coachDTO){
         log.info("Creation of a new coach");
-        Coach coachCreated = coachService.createCoach(coach);
+        Coach coachCreated = coachService.createCoach(coachDTO);
 
         HttpHeaders headers = new HttpHeaders();
         headers.add("Location", "/api/v1/coach/"+coachCreated.getUuid());

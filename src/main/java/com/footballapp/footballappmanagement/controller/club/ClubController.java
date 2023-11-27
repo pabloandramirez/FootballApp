@@ -3,6 +3,7 @@ package com.footballapp.footballappmanagement.controller.club;
 import com.footballapp.footballappmanagement.domain.Club;
 import com.footballapp.footballappmanagement.exceptions.IllegalArgumentException;
 import com.footballapp.footballappmanagement.exceptions.NotFoundException;
+import com.footballapp.footballappmanagement.model.dto.club.ClubDTO;
 import com.footballapp.footballappmanagement.services.club.ClubService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,19 +26,13 @@ public class ClubController {
 
     //GET
     @GetMapping("/{idClub}")
-    public Optional<Club> getClubById(@PathVariable(value = "idClub")UUID idClub)
+    public ClubDTO getClubById(@PathVariable(value = "idClub")UUID idClub)
             throws NotFoundException {
-        Optional<Club> club = clubService.getClubById(idClub);
-        if (club.isEmpty()){
-            log.info("Club Not Found");
-            throw new NotFoundException();
-        } else {
-            return club;
-        }
+        return clubService.getClubById(idClub).orElseThrow(NotFoundException::new);
     }
 
     @GetMapping("/")
-    public List<Club> getClubs(@RequestParam(name="name", required = false) String name){
+    public List<ClubDTO> getClubs(@RequestParam(name="name", required = false) String name){
         log.info("Trying to find clubs by name. In case name is empty it shows the full list");
         if (name == null || name.isBlank()){
             return clubService.getClubs();
@@ -50,11 +45,11 @@ public class ClubController {
     }
 
     @GetMapping("/city/")
-    public List<Club> getClubByCityName(@RequestParam(name="name", required = false) String cityName)
+    public List<ClubDTO> getClubByCityName(@RequestParam(name="name", required = false) String cityName)
             throws IllegalArgumentException {
         log.info("Find the club/s by the name of its city. If its empty will show all clubs");
         if(cityName == null || cityName.isBlank()){
-            return clubService.getClubByCity(cityName);
+            return clubService.getClubs();
         } else {
             if (clubService.getClubByCity(cityName).isEmpty()){
                 log.info("There are no clubs in this city");
@@ -65,9 +60,9 @@ public class ClubController {
 
     //POST
     @PostMapping
-    public ResponseEntity<Void> createClub(@RequestBody Club club){
+    public ResponseEntity<Void> createClub(@RequestBody ClubDTO clubDTO){
         log.info("Creating a new club");
-        Club clubCreated = clubService.createClub(club);
+        Club clubCreated = clubService.createClub(clubDTO);
 
         HttpHeaders headers = new HttpHeaders();
         headers.add("Location", "/api/v1/club/"+clubCreated.getUuid());
