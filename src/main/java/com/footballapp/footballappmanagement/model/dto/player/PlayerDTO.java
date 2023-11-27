@@ -2,10 +2,7 @@ package com.footballapp.footballappmanagement.model.dto.player;
 
 import com.footballapp.footballappmanagement.bootstrapdata.enums.Position;
 import com.footballapp.footballappmanagement.domain.Club;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 
 import java.time.LocalDateTime;
@@ -15,6 +12,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Slf4j
+@Builder
 public class PlayerDTO {
 
     private String name;

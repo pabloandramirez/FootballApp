@@ -21,7 +21,13 @@ public class CoachMapperImpl implements CoachMapper {
 
     @Override
     public CoachDTO coachToCoachDTO(Coach coach) {
-        return null;
+        return CoachDTO
+                .builder()
+                .name(coach.getName())
+                .surName(coach.getSurName())
+                .age(getAge(coach.getDateOfBirth()))
+                .clubName(coach.getClub().getName())
+                .build();
     }
 
     private LocalDate getLocalDate(String date){
