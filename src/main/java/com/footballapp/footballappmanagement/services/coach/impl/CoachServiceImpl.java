@@ -2,11 +2,17 @@ package com.footballapp.footballappmanagement.services.coach.impl;
 
 import com.footballapp.footballappmanagement.domain.Coach;
 import com.footballapp.footballappmanagement.services.coach.CoachService;
+import lombok.AllArgsConstructor;
+import org.springframework.context.annotation.Primary;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+@Primary
+@Service
+@AllArgsConstructor
 public class CoachServiceImpl implements CoachService {
     @Override
     public Coach createCoach(Coach coach) {

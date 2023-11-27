@@ -4,10 +4,12 @@ import com.footballapp.footballappmanagement.bootstrapdata.enums.Position;
 import com.footballapp.footballappmanagement.domain.Player;
 import com.footballapp.footballappmanagement.mapper.player.PlayerMapper;
 import com.footballapp.footballappmanagement.model.dto.player.PlayerDTO;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.time.Period;
 
+@Component
 public class PlayerMapperImpl implements PlayerMapper {
     @Override
     public Player playerDTOtoPlayer(PlayerDTO playerDTO) {

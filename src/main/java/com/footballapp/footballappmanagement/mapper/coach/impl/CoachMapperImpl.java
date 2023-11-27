@@ -3,11 +3,13 @@ package com.footballapp.footballappmanagement.mapper.coach.impl;
 import com.footballapp.footballappmanagement.domain.Coach;
 import com.footballapp.footballappmanagement.mapper.coach.CoachMapper;
 import com.footballapp.footballappmanagement.model.dto.coach.CoachDTO;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.UUID;
 
+@Component
 public class CoachMapperImpl implements CoachMapper {
     @Override
     public Coach coachDTOtoCoach(CoachDTO coachDTO) {
