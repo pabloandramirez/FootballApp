@@ -34,7 +34,7 @@ public class Stadium {
     private LocalDate constructionDate;
 
     @Column(length = 6, columnDefinition = "int", updatable = true, nullable = false)
-    private int capacity;
+    private Integer capacity;
 
     @OneToOne
     @JoinColumn(name = "club_id")

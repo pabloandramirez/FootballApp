@@ -2,6 +2,7 @@ package com.footballapp.footballappmanagement.controller.stadium;
 
 import com.footballapp.footballappmanagement.domain.Stadium;
 import com.footballapp.footballappmanagement.exceptions.NotFoundException;
+import com.footballapp.footballappmanagement.model.dto.stadium.StadiumDTO;
 import com.footballapp.footballappmanagement.services.stadium.StadiumService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,19 +25,13 @@ public class StadiumController {
 
     //GET
     @GetMapping("/{idStadium}")
-    public Optional<Stadium> getStadiumById(@PathVariable(value = "idStadium")UUID idStadium)
+    public StadiumDTO getStadiumById(@PathVariable(value = "idStadium")UUID idStadium)
             throws NotFoundException {
-        Optional<Stadium> stadium = stadiumService.getStadiumById(idStadium);
-        if (stadium.isEmpty()){
-            log.info(("Stadium Not Found"));
-            throw new NotFoundException();
-        } else {
-            return stadium;
-        }
+        return stadiumService.getStadiumById(idStadium).orElseThrow(NotFoundException::new);
     }
 
     @GetMapping("/")
-    public List<Stadium> getStadium(@RequestParam(name = "name", required = false) String stadiumName){
+    public List<StadiumDTO> getStadium(@RequestParam(name = "name", required = false) String stadiumName){
         log.info("Shows all stadiums if the name is blank, or find by name");
         if (stadiumName == null || stadiumName.isBlank()){
             return stadiumService.allStadiums();
@@ -49,7 +44,7 @@ public class StadiumController {
     }
 
     @GetMapping("/city/")
-    public List<Stadium> getStadiumByName(@RequestParam(name = "name", required = false) String cityName){
+    public List<StadiumDTO> getStadiumByName(@RequestParam(name = "name", required = false) String cityName){
         log.info("Shows all stadiums if the city name is blank, or find by city name");
         if (cityName == null || cityName.isBlank()){
             return stadiumService.allStadiums();
@@ -63,9 +58,9 @@ public class StadiumController {
 
     //POST
     @PostMapping()
-    public ResponseEntity<Void> createStadium(@RequestBody Stadium stadium){
+    public ResponseEntity<Void> createStadium(@RequestBody StadiumDTO stadiumDTO){
         log.info("Creation of a new stadium");
-        Stadium stadiumCreated = stadiumService.createStadium(stadium);
+        Stadium stadiumCreated = stadiumService.createStadium(stadiumDTO);
 
         HttpHeaders headers = new HttpHeaders();
         headers.add("Location", "/api/v1/stadium/"+stadiumCreated.getUuid());
