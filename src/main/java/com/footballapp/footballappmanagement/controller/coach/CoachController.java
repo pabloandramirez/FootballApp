@@ -32,16 +32,16 @@ public class CoachController {
     }
 
     @GetMapping("/")
-    public List<CoachDTO> getCoaches(@RequestParam(name="name", required = false)String coachName){
+    public List<CoachDTO> getCoaches(@RequestParam(name="name", required = false)String coachNameOrSurname){
         log.info("Shows all coaches or find by name");
-        if (coachName == null || coachName.isBlank()){
+        if (coachNameOrSurname == null || coachNameOrSurname.isBlank()){
             return coachService.getCoaches();
         } else {
-            if (coachService.getCoachByNameOrSurname(coachName).isEmpty()){
+            if (coachService.getCoachByNameOrSurname(coachNameOrSurname).isEmpty()){
                 log.info("There are no coaches with this name");
             }
         }
-        return coachService.getCoachByNameOrSurname(coachName);
+        return coachService.getCoachByNameOrSurname(coachNameOrSurname);
     }
 
     //POST

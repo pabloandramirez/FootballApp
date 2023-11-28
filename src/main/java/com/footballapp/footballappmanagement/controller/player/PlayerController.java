@@ -3,6 +3,7 @@ package com.footballapp.footballappmanagement.controller.player;
 import com.footballapp.footballappmanagement.domain.Player;
 import com.footballapp.footballappmanagement.exceptions.IllegalArgumentException;
 import com.footballapp.footballappmanagement.exceptions.NotFoundException;
+import com.footballapp.footballappmanagement.model.dto.player.PlayerDTO;
 import com.footballapp.footballappmanagement.services.player.PlayerService;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -27,32 +28,26 @@ public class PlayerController {
 
     //GET
     @GetMapping("/{idPlayer}")
-    public Optional<Player> playerById(@PathVariable(value = "idPlayer")UUID idPlayer)
+    public PlayerDTO playerById(@PathVariable(value = "idPlayer")UUID idPlayer)
             throws NotFoundException {
-        Optional<Player> player = playerService.getPlayerById(idPlayer);
-        if (player.isEmpty()){
-            log.info("Club Not Found");
-            throw new NotFoundException();
-        } else {
-            return player;
-        }
+        return playerService.getPlayerById(idPlayer).orElseThrow(NotFoundException::new);
     }
 
     @GetMapping("/")
-    public List<Player> getPlayer(@RequestParam(name = "name", required = false) String playerName){
+    public List<PlayerDTO> getPlayer(@RequestParam(name = "name", required = false) String playerNameOrSurname){
         log.info("Show all players or find by name");
-        if (playerName == null || playerName.isBlank()){
+        if (playerNameOrSurname == null || playerNameOrSurname.isBlank()){
             return playerService.allPlayers();
         } else {
-            if (playerService.playerByName(playerName).isEmpty()){
+            if (playerService.playerByName(playerNameOrSurname).isEmpty()){
                 log.info("There are no players with this name");
             }
         }
-        return playerService.playerByName(playerName);
+        return playerService.playerByName(playerNameOrSurname);
     }
 
     @GetMapping("/club/")
-    public List<Player> getPlayersByClub(@RequestParam(name = "clubName", required = false) String clubName) {
+    public List<PlayerDTO> getPlayersByClub(@RequestParam(name = "clubName", required = false) String clubName) {
         log.info("Find the club by the name of its city. If its empty will show all players");
         if (clubName==null || clubName.isBlank()){
             return playerService.allPlayers();
@@ -66,9 +61,9 @@ public class PlayerController {
 
     //POST
     @PostMapping()
-    public ResponseEntity<Void> createPlayer(@RequestBody Player player){
+    public ResponseEntity<Void> createPlayer(@RequestBody PlayerDTO playerDTO){
         log.info("Creation of a new player");
-        Player playerCreated = playerService.createPlayer(player);
+        Player playerCreated = playerService.createPlayer(playerDTO);
 
         HttpHeaders headers = new HttpHeaders();
         headers.add("Location", "/api/v1/player/"+playerCreated.getUuid());

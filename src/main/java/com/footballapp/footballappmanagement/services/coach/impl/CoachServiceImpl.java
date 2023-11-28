@@ -62,11 +62,39 @@ public class CoachServiceImpl implements CoachService {
 
     @Override
     public Optional<Coach> updateCoach(UUID uuidCoach, Coach coachUpdated) {
+        Optional<Coach> coachOptional = coachRepository.findById(uuidCoach);
+
+        if (coachOptional.isPresent()){
+            updatingCoach(coachOptional.get(), coachUpdated);
+            return Optional.of(coachRepository.saveAndFlush(coachOptional.get()));
+        }
         return Optional.empty();
+    }
+
+    private void updatingCoach(Coach coach, Coach coachUpdated){
+        if (coachUpdated.getName() != null){
+            coach.setName(coachUpdated.getName());
+        }
+
+        if (coachUpdated.getSurName() != null){
+            coach.setSurName(coachUpdated.getSurName());
+        }
+
+        if (coachUpdated.getClub() != null){
+            coach.setClub(coachUpdated.getClub());
+        }
+
+        if (coachUpdated.getDateOfBirth() != null){
+            coach.setDateOfBirth(coachUpdated.getDateOfBirth());
+        }
     }
 
     @Override
     public boolean deleteCoach(UUID uuidCoach) {
+        if (coachRepository.existsById(uuidCoach)) {
+            coachRepository.deleteById(uuidCoach);
+            return true;
+        }
         return false;
     }
 }

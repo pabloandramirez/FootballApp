@@ -38,15 +38,15 @@ public class Player {
     private Position position;
 
     @Column(length = 5, columnDefinition = "Integer", updatable = true, nullable = false)
-    private int matches;
+    private Integer matches;
 
     @Column(length = 5, columnDefinition = "Integer", updatable = true, nullable = false)
-    private int assists;
+    private Integer assists;
 
     @Column(length = 5, columnDefinition = "Integer", updatable = true, nullable = false)
-    private int goals;
+    private Integer goals;
 
-    private boolean captain;
+    private Boolean captain;
 
     @ManyToOne
     private Club club;
